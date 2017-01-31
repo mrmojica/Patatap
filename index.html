@@ -3,15 +3,35 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
 	<script type="text/javascript" src="paper-full.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+
 	<script type="text/paperscript" canvas="myCanvas">
 
-	var myCircle = new Path.Circle(new Point(100, 70), 50);
-	myCircle.fillColor = 'black';
+	var circles = [];
 
-	var myCircle2 = new Path.Circle(new Point(200, 70), 50);
-	myCircle.fillColor = 'purple';
+	function onKeyDown(event) {
+		var maxPoint = new Point(view.size.width, view.size.height);
+		var randomPoint = Point.random();
+		var point = maxPoint * randomPoint;
+		var newCircle = new Path.Circle(point, 500);
+		newCircle.fillColor = "orange";
+		console.log('point', point);
+
+		// put circles in array to reference back for animation
+		circles.push(newCircle);
+	}
+
+	function onFrame(event) {
+		for(var i = 0; i < circles.length; i++) {
+			circles[i].fillColor.hue += 1;
+			circles[i].scale(.93);
+
+		}
+	}
+
+
+
 </script>
 </head>
 <body>
